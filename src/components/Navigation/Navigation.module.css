@@ -1,0 +1,14 @@
+.navigation_name {
+  text-decoration: none;
+  color: black;
+}
+
+.navigation_name:hover {
+  color: blueviolet;
+  text-decoration: underline;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
