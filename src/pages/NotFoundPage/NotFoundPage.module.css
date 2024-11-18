@@ -1,3 +1,5 @@
-.NavLink {
-  color: red;
+.navLink {
+  color: chocolate;
+  font-weight: bold;
+  text-decoration: none;
 }
