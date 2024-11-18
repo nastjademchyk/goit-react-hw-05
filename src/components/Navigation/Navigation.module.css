@@ -5,10 +5,10 @@
 
 .navigation_name:hover {
   color: blueviolet;
-  text-decoration: underline;
 }
 
 .nav {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
