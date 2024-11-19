@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { fetchCast, fetchPosters } from "../../services/api";
 import React, { useEffect, useState } from "react";
 import s from "./MovieCast.module.css";
+import Loader from "../Loader/Loader";
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -30,7 +31,11 @@ const MovieCast = () => {
   }, [movieId]);
 
   if (loading) {
-    return <div>Loading cast info...</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
@@ -43,7 +48,7 @@ const MovieCast = () => {
 
   return (
     <div>
-      <h2 classNme={s.header}>Cast</h2>
+      <h2 className={s.header}>Cast</h2>
       <ul className={s.list_casts}>
         {casts.map((cast) => (
           <li key={cast.id} className={s.cast_item}>

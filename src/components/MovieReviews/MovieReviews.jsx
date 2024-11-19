@@ -2,6 +2,7 @@ import { fetchReviews } from "../../services/api.js";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import s from "./MovieReviews.module.css";
+import Loader from "../Loader/Loader";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -24,7 +25,11 @@ const MovieReviews = () => {
   }, [movieId]);
 
   if (loading) {
-    return <div>Loading reviews...</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {

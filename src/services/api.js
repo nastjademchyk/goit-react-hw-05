@@ -6,6 +6,17 @@ const ACCESS_KEY =
 
 axios.defaults.headers.common.Authorization = `Bearer ${ACCESS_KEY}`;
 
+export const fetchPosters = async () => {
+  try {
+    const response = await axios.get("/configuration");
+    const { images } = response.data;
+    return images.base_url;
+  } catch (error) {
+    console.error("Error fetching image configuration:", error);
+    return null;
+  }
+};
+
 export const fetchTrendingMovies = async () => {
   try {
     const base_url = await fetchPosters();
@@ -77,13 +88,13 @@ export const fetchCast = async (movieId) => {
   }
 };
 
-export const fetchPosters = async () => {
-  try {
-    const response = await axios.get("/configuration");
-    const { images } = response.data;
-    return images.base_url;
-  } catch (error) {
-    console.error("Error fetching image configuration:", error);
-    return null;
-  }
-};
+// export const fetchPosters = async () => {
+//   try {
+//     const response = await axios.get("/configuration");
+//     const { images } = response.data;
+//     return images.base_url;
+//   } catch (error) {
+//     console.error("Error fetching image configuration:", error);
+//     return null;
+//   }
+// };
