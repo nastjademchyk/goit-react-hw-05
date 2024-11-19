@@ -1,0 +1,52 @@
+.list {
+  list-style-type: none;
+  text-align: left;
+}
+.details_info {
+  display: flex;
+  gap: 50px;
+}
+.additional {
+  padding-top: 30px;
+  text-align: left;
+}
+
+.movie_page {
+  padding-top: 30px;
+}
+
+.additionl_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  list-style-type: none;
+  gap: 20px;
+}
+
+.additionl_info:nth-last-child() {
+  gap: none;
+}
+
+.btn {
+  display: flex;
+  justify-content: left;
+  background-color: #dc143c;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 20px;
+}
+
+.btn:hover {
+  background-color: black;
+}
+
+.title_poster img {
+  max-width: 100%;
+  border-radius: 10px;
+}

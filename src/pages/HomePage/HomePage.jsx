@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import MovieList from "../../components/MovieList/MovieList";
 import s from "./HomePage.module.css";
+import { fetchTrendingMovies, fetchPosters } from "../../services/api";
 
 const HomePage = () => {
   useEffect(() => {
@@ -8,7 +9,7 @@ const HomePage = () => {
   }, []);
   return (
     <div>
-      <p className={s.text}>Top 20 Movies</p>
+      <h1 className={s.text}>Top 20 Movies</h1>
       <MovieList />
     </div>
   );

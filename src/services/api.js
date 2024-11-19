@@ -15,8 +15,44 @@ export const fetchTrendingMovies = async () => {
   } catch (error) {
     console.error("Error fetching trending movies:", error);
     return [];
-    ки;
   }
 };
 
 fetchTrendingMovies();
+
+export const fetchMoviesDetails = async (movieId) => {
+  if (!movieId) {
+    console.error("Movie ID is required.");
+    return null;
+  }
+  try {
+    const base_url = await fetchPosters();
+    if (!base_url) {
+      throw new Error("Base URL for images could not be fetched.");
+    }
+    const { data } = await axios.get(`/movie/${movieId}`, {
+      params: { language: "en-US" },
+    });
+    const file_size = "w500";
+    const posterUrl = `${base_url}${file_size}${data.poster_path}`;
+    return { ...data, posterUrl };
+  } catch (error) {
+    console.error(
+      "Error fetching movie details:",
+      error.message,
+      error.response?.data
+    );
+    return null;
+  }
+};
+
+export const fetchPosters = async () => {
+  try {
+    const response = await axios.get("/configuration");
+    const { images } = response.data;
+    return images.base_url;
+  } catch (error) {
+    console.error("Error fetching image configuration:", error);
+    return null;
+  }
+};
