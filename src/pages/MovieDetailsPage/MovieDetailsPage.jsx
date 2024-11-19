@@ -3,6 +3,11 @@ import { NavLink, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import s from "./MovieDetailsPage.module.css";
 import { fetchMoviesDetails } from "../../services/api";
+import clsx from "clsx";
+
+const buildLinkClass = ({ isActive }) => {
+  return clsx(s.link, isActive && s.active);
+};
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -74,13 +79,17 @@ const MovieDetailsPage = () => {
         </ul>
       </div>
 
-      <p className={s.additional}>Additional information</p>
+      <p className={s.additional}></p>
       <ul className={s.list}>
         <li>
-          <NavLink to="reviews">Reviews</NavLink>
+          <NavLink to="reviews" className={buildLinkClass}>
+            Reviews
+          </NavLink>
         </li>
         <li>
-          <NavLink to="cast">Cast</NavLink>
+          <NavLink to="cast" className={buildLinkClass}>
+            Cast
+          </NavLink>
         </li>
       </ul>
       <Outlet />

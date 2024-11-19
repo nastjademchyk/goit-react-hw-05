@@ -8,10 +8,18 @@ axios.defaults.headers.common.Authorization = `Bearer ${ACCESS_KEY}`;
 
 export const fetchTrendingMovies = async () => {
   try {
+    const base_url = await fetchPosters();
+    const file_size = "w200";
     const { data } = await axios.get("/trending/movie/day", {
       params: { language: "en-US", page: 1 },
     });
-    return data.results;
+    const moviesWithPosters = data.results.map((movie) => ({
+      ...movie,
+      posterUrl: movie.poster_path
+        ? `${base_url}${file_size}${movie.poster_path}`
+        : null,
+    }));
+    return moviesWithPosters;
   } catch (error) {
     console.error("Error fetching trending movies:", error);
     return [];
@@ -42,6 +50,29 @@ export const fetchMoviesDetails = async (movieId) => {
       error.message,
       error.response?.data
     );
+    return null;
+  }
+};
+
+export const fetchReviews = async (movieId) => {
+  try {
+    const { data } = await axios.get(`/movie/${movieId}/reviews`, {
+      params: { language: "en-US" },
+    });
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    return null;
+  }
+};
+export const fetchCast = async (movieId) => {
+  try {
+    const { data } = await axios.get(`/movie/${movieId}/credits`, {
+      params: { language: "en-US" },
+    });
+    return data.cast;
+  } catch (error) {
+    console.error("Error fetching cast:", error);
     return null;
   }
 };

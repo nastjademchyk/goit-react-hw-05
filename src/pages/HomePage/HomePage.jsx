@@ -9,7 +9,7 @@ const HomePage = () => {
   }, []);
   return (
     <div>
-      <h1 className={s.text}>Top 20 Movies</h1>
+      <h1 className={s.text}>Most Popular Movies</h1>
       <MovieList />
     </div>
   );

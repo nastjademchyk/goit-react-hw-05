@@ -1,6 +1,7 @@
 .list {
   list-style-type: none;
   text-align: left;
+  padding-bottom: 30px;
 }
 .details_info {
   display: flex;
@@ -47,6 +48,16 @@
 }
 
 .title_poster img {
-  max-width: 100%;
   border-radius: 10px;
+  min-width: 300px;
+}
+
+a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+.active {
+  text-decoration: underline;
+  color: #dc143c;
 }

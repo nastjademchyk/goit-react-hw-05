@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchTrendingMovies } from "../../services/api";
+import { fetchTrendingMovies, fetchPosters } from "../../services/api";
 import s from "./MovieList.module.css";
 import { Link } from "react-router-dom";
 
@@ -13,12 +13,21 @@ const MovieList = () => {
     };
     getData();
   }, []);
+
   return (
     <ul className={s.movies}>
       {movies.map((movie) => (
         <li className={s.list_movies} key={movie.id}>
           <Link to={`/movies/${movie.id}`}>
-            <p>{movie.title}</p>
+            {movie.posterUrl ? (
+              <img
+                src={movie.posterUrl}
+                alt={movie.title}
+                className={s.poster}
+              />
+            ) : (
+              <p>No image available</p>
+            )}
           </Link>
         </li>
       ))}
