@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import s from "./MovieDetailsPage.module.css";
 import { fetchMoviesDetails } from "../../services/api";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(s.link, isActive && s.active);
@@ -48,9 +49,11 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={s.movie_page}>
-      <button className={s.btn} type="button">
-        Go back
-      </button>
+      <Link to="/">
+        <button className={s.btn} type="button">
+          Go back
+        </button>
+      </Link>
       <div className={s.details_info}>
         <div className={s.title_poster}>
           <h1>{title}</h1>

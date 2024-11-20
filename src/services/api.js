@@ -37,6 +37,42 @@ export const fetchTrendingMovies = async () => {
   }
 };
 
+export const fetchSearchMovie = async (query, fileSize = "w200") => {
+  if (!query) {
+    console.error("Search query is required!");
+    return [];
+  }
+
+  try {
+    const base_url = await fetchPosters();
+    if (!base_url) {
+      throw new Error("Failed to fetch base URL for images.");
+    }
+
+    const { data } = await axios.get("/search/movie", {
+      params: {
+        query,
+        language: "en-US",
+        page: 1,
+      },
+    });
+
+    const moviesWithPosters = data.results.map((movie) => ({
+      id: movie.id,
+      title: movie.title || "Untitled",
+      release_date: movie.release_date,
+      posterUrl: movie.poster_path
+        ? `${base_url}${fileSize}${movie.poster_path}`
+        : "/path-to-placeholder-image.jpg",
+    }));
+
+    return moviesWithPosters;
+  } catch (error) {
+    console.error("Error fetching movies:", error.message);
+    return [];
+  }
+};
+
 fetchTrendingMovies();
 
 export const fetchMoviesDetails = async (movieId) => {
@@ -87,14 +123,3 @@ export const fetchCast = async (movieId) => {
     return null;
   }
 };
-
-// export const fetchPosters = async () => {
-//   try {
-//     const response = await axios.get("/configuration");
-//     const { images } = response.data;
-//     return images.base_url;
-//   } catch (error) {
-//     console.error("Error fetching image configuration:", error);
-//     return null;
-//   }
-// };
