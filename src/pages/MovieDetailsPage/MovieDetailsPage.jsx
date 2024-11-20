@@ -4,7 +4,9 @@ import { Outlet } from "react-router-dom";
 import s from "./MovieDetailsPage.module.css";
 import { fetchMoviesDetails } from "../../services/api";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Suspense } from "react";
+import Loader from "../../components/Loader/Loader";
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(s.link, isActive && s.active);
@@ -15,6 +17,8 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -33,7 +37,11 @@ const MovieDetailsPage = () => {
   }, [movieId]);
 
   if (loading) {
-    return <div>Loading movie details...</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
@@ -49,11 +57,10 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={s.movie_page}>
-      <Link to="/">
-        <button className={s.btn} type="button">
-          Go back
-        </button>
-      </Link>
+      <button className={s.btn} type="button" onClick={() => navigate(-1)}>
+        Go back
+      </button>
+
       <div className={s.details_info}>
         <div className={s.title_poster}>
           <h1>{title}</h1>
@@ -95,7 +102,9 @@ const MovieDetailsPage = () => {
           </NavLink>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
