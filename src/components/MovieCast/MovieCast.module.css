@@ -15,7 +15,7 @@
 .cast_image {
   border-radius: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
   object-fit: cover;
 }
 
