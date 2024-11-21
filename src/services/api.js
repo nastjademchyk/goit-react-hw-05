@@ -88,9 +88,11 @@ export const fetchMoviesDetails = async (movieId) => {
     const { data } = await axios.get(`/movie/${movieId}`, {
       params: { language: "en-US" },
     });
+    const trailerKey = await fetchMovieTrailers(movieId);
+
     const file_size = "w500";
     const posterUrl = `${base_url}${file_size}${data.poster_path}`;
-    return { ...data, posterUrl };
+    return { ...data, posterUrl, trailerKey };
   } catch (error) {
     console.error(
       "Error fetching movie details:",
@@ -112,6 +114,7 @@ export const fetchReviews = async (movieId) => {
     return null;
   }
 };
+
 export const fetchCast = async (movieId) => {
   try {
     const { data } = await axios.get(`/movie/${movieId}/credits`, {
@@ -120,6 +123,21 @@ export const fetchCast = async (movieId) => {
     return data.cast;
   } catch (error) {
     console.error("Error fetching cast:", error);
+    return null;
+  }
+};
+
+export const fetchMovieTrailers = async (movieId) => {
+  try {
+    const { data } = await axios.get(`/movie/${movieId}/videos`, {
+      params: { language: "en-US" },
+    });
+    const trailer = data.results.find(
+      (video) => video.type === "Trailer" && video.site === "YouTube"
+    );
+    return trailer ? trailer.key : null;
+  } catch (error) {
+    console.error("Error fetching movie trailers:", error);
     return null;
   }
 };

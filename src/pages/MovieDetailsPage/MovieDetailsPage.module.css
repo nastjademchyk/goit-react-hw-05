@@ -50,6 +50,7 @@
 .title_poster img {
   border-radius: 10px;
   min-width: 320px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 a {
@@ -60,4 +61,14 @@ a {
 .active {
   text-decoration: underline;
   color: #dc143c;
+}
+.trailer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.trailer iframe {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

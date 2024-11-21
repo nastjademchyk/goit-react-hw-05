@@ -55,8 +55,15 @@ const MovieDetailsPage = () => {
     return <div>No movie details found.</div>;
   }
 
-  const { title, vote_average, overview, genres, popularity, posterUrl } =
-    movieDetails;
+  const {
+    title,
+    vote_average,
+    overview,
+    genres,
+    popularity,
+    posterUrl,
+    trailerKey,
+  } = movieDetails;
 
   return (
     <div className={s.movie_page}>
@@ -98,6 +105,19 @@ const MovieDetailsPage = () => {
             </p>
           </li>
         </ul>
+        {trailerKey && (
+          <div className={s.trailer}>
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${trailerKey}`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
       </div>
 
       <p className={s.additional}></p>
