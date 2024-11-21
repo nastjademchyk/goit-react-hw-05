@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Suspense } from "react";
 import Loader from "../../components/Loader/Loader";
 import { useRef } from "react";
+import defaultPoster from "../../assets/default-movie.jpg";
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(s.link, isActive && s.active);
@@ -68,7 +69,13 @@ const MovieDetailsPage = () => {
       <div className={s.details_info}>
         <div className={s.title_poster}>
           <h1>{title}</h1>
-          <img src={posterUrl} alt={title} />
+          <img
+            src={posterUrl || defaultPoster}
+            alt={title}
+            onError={(e) => {
+              e.target.src = defaultPoster;
+            }}
+          />
         </div>
         <ul className={s.additionl_info}>
           <li>

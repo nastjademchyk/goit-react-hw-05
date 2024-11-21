@@ -5,6 +5,7 @@ import { fetchSearchMovie } from "../../services/api";
 import { useSearchParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
+import defaultPoster from "../../assets/default-movie.jpg";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -22,8 +23,16 @@ const MoviesPage = () => {
     const searchMovies = async () => {
       try {
         setIsLoading(true);
+        setError(null);
         const results = await fetchSearchMovie(query);
-        setMovies(results);
+        if (results.length === 0) {
+          setMovies([]);
+          setError(
+            "No movies matched your search query. Please try searching for a different title. "
+          );
+        } else {
+          setMovies(results);
+        }
       } catch (error) {
         setError("Failed to fetch movies.");
       } finally {
@@ -62,9 +71,12 @@ const MoviesPage = () => {
           <li key={movie.id} className={s.movieItem}>
             <Link to={`/movies/${movie.id}`} state={location}>
               <img
-                src={movie.posterUrl}
+                src={movie.posterUrl || defaultPoster}
                 alt={movie.title}
                 className={s.movieImage}
+                onError={(e) => {
+                  e.target.src = defaultPoster;
+                }}
               />
               <p>{movie.title}</p>
               <p className={s.release_date}>
