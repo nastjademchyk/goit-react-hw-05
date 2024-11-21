@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import s from "./MoviesPage.module.css";
 import { fetchSearchMovie } from "../../services/api";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 
@@ -12,6 +12,7 @@ const MoviesPage = () => {
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState("");
+  const location = useLocation();
 
   const query = searchParams.get("name") ?? "";
 
@@ -59,7 +60,7 @@ const MoviesPage = () => {
       <ul className={s.moviesList}>
         {movies.map((movie) => (
           <li key={movie.id} className={s.movieItem}>
-            <Link to={`/movies/${movie.id}`}>
+            <Link to={`/movies/${movie.id}`} state={location}>
               <img
                 src={movie.posterUrl}
                 alt={movie.title}

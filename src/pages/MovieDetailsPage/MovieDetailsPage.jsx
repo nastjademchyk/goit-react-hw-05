@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import s from "./MovieDetailsPage.module.css";
 import { fetchMoviesDetails } from "../../services/api";
@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Suspense } from "react";
 import Loader from "../../components/Loader/Loader";
+import { useRef } from "react";
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(s.link, isActive && s.active);
@@ -18,7 +19,8 @@ const MovieDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const location = useLocation();
-  const navigate = useNavigate();
+
+  const goBackLink = useRef(location.state ?? `/movies`);
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -57,9 +59,11 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={s.movie_page}>
-      <button className={s.btn} type="button" onClick={() => navigate(-1)}>
-        Go back
-      </button>
+      <Link to={goBackLink.current}>
+        <button className={s.btn} type="button">
+          Go back
+        </button>
+      </Link>
 
       <div className={s.details_info}>
         <div className={s.title_poster}>
