@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import s from "./MoviesPage.module.css";
 import { fetchSearchMovie } from "../../services/api";
 import { useSearchParams, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import MovieList from "../../components/MovieList/MovieList";
+import toast, { Toaster } from "react-hot-toast";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -45,12 +45,18 @@ const MoviesPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const trimmedQuery = inputValue.trim();
+
+    if (!trimmedQuery) {
+      toast.error("Please enter a movie name to search!");
+      return;
+    }
     setSearchParams(trimmedQuery ? { name: trimmedQuery } : {});
     setInputValue("");
   };
 
   return (
     <div className={s.search}>
+      <Toaster position="top-center" reverseOrder={false} />
       <form className={s.form} id="search-form" onSubmit={handleSubmit}>
         <input
           type="text"
