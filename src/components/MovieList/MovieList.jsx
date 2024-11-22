@@ -1,35 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { fetchTrendingMovies, fetchPosters } from "../../services/api";
+import React from "react";
 import s from "./MovieList.module.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import defaultPoster from "../../assets/default-movie.jpg";
 
-const MovieList = () => {
-  const [movies, setMovies] = useState([]);
+const MovieList = ({ movies }) => {
   const location = useLocation();
 
-  useEffect(() => {
-    const getData = async () => {
-      const fetchedMovies = await fetchTrendingMovies();
-      setMovies(fetchedMovies);
-    };
-    getData();
-  }, []);
-
   return (
-    <ul className={s.movies}>
+    <ul className={s.moviesList}>
       {movies.map((movie) => (
-        <li className={s.list_movies} key={movie.id}>
+        <li key={movie.id} className={s.movieItem}>
           <Link to={`/movies/${movie.id}`} state={location}>
-            {movie.posterUrl ? (
-              <img
-                src={movie.posterUrl}
-                alt={movie.title}
-                className={s.poster}
-              />
-            ) : (
-              <p>No image available</p>
-            )}
+            <img
+              src={movie.posterUrl || defaultPoster}
+              alt={movie.title}
+              className={s.movieImage}
+              onError={(e) => {
+                e.target.src = defaultPoster;
+              }}
+            />
+            <p>{movie.title}</p>
+            <p className={s.release_date}>
+              {movie.release_date
+                ? new Date(movie.release_date).getFullYear()
+                : "N/A"}
+            </p>
           </Link>
         </li>
       ))}

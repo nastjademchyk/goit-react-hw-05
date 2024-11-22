@@ -1,23 +1,4 @@
 .list_movies {
-  text-align: left;
-}
-.list_movies:hover {
-  transform: scale(1.03);
-  transition: transform 0.5s ease, background-color 0.5s ease;
-}
-
-.movies {
-  list-style-type: none;
-}
-
-.movies {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding-top: 30px;
-}
-
-.list_movies {
   width: calc((100% - 30px) / 4);
 }
 .poster {
@@ -25,4 +6,34 @@
   width: 100%;
   max-width: 300px;
   object-fit: cover;
+}
+
+.moviesList {
+  list-style-type: none;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+  padding-top: 20px;
+}
+
+.movieItem {
+  width: calc((100% - 30px) / 4);
+}
+
+.movieItem:hover {
+  transform: scale(1.03);
+  transition: transform 0.5s ease, background-color 0.5s ease;
+}
+
+.movieImage {
+  border-radius: 10px;
+  width: 100%;
+  max-width: 300px;
+  object-fit: cover;
+}
+
+.release_date {
+  font-weight: normal;
 }

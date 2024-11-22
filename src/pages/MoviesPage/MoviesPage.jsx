@@ -5,7 +5,7 @@ import { fetchSearchMovie } from "../../services/api";
 import { useSearchParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
-import defaultPoster from "../../assets/default-movie.jpg";
+import MovieList from "../../components/MovieList/MovieList";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -13,7 +13,6 @@ const MoviesPage = () => {
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState("");
-  const location = useLocation();
 
   const query = searchParams.get("name") ?? "";
 
@@ -66,28 +65,7 @@ const MoviesPage = () => {
       </form>
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
-      <ul className={s.moviesList}>
-        {movies.map((movie) => (
-          <li key={movie.id} className={s.movieItem}>
-            <Link to={`/movies/${movie.id}`} state={location}>
-              <img
-                src={movie.posterUrl || defaultPoster}
-                alt={movie.title}
-                className={s.movieImage}
-                onError={(e) => {
-                  e.target.src = defaultPoster;
-                }}
-              />
-              <p>{movie.title}</p>
-              <p className={s.release_date}>
-                {movie.release_date
-                  ? new Date(movie.release_date).getFullYear()
-                  : "N/A"}
-              </p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <MovieList movies={movies} />
       <div id="movies"></div>
     </div>
   );
