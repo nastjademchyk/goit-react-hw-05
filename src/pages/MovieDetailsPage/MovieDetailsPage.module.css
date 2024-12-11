@@ -58,9 +58,9 @@ a {
   font-weight: bold;
   text-decoration: none;
 }
-.active {
-  text-decoration: underline;
-  color: #dc143c;
+.link.active {
+  text-decoration: none;
+  color: #fe0808;
 }
 .trailer {
   display: flex;
@@ -71,4 +71,8 @@ a {
 .trailer iframe {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.link {
+  color: white;
 }
