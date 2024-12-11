@@ -37,7 +37,7 @@ const MovieReviews = () => {
   }
 
   if (!reviews || reviews.length === 0) {
-    return <div>No reviews found for this movie.</div>;
+    return <div className={s.text}>No reviews found for this movie.</div>;
   }
 
   const { author, author_details } = reviews;
