@@ -1,3 +1,8 @@
+a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .list_movies {
   width: calc((100% - 30px) / 4);
 }
